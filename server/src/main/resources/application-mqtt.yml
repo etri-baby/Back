@@ -1,0 +1,4 @@
+mqtt:
+    url: tcp://129.254.174.119
+    port: 1883
+    topic: "smart"
