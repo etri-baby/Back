@@ -19,11 +19,9 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
-import lombok.extern.slf4j.Slf4j;
 import task.poject.server.SmartFarm.SmartFarmRepository;
 import task.poject.server.SmartFarm.SmartFarmService;
 
-@Slf4j
 @Configuration
 public class MqttConfiguration {
 
@@ -81,9 +79,8 @@ public class MqttConfiguration {
     public MessageHandler inboundMessageHandler() {
         return message -> {
             String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
-            log.info("topic: " + topic + " payload: " + message.getPayload());
-            String[] token = topic.split("/");
-            String payload = message.getPayload().toString();
+            System.out.println("Topic:" + topic);
+            System.out.println("Payload" + message.getPayload());
         };
     }
 
@@ -95,7 +92,7 @@ public class MqttConfiguration {
 
     @Bean
     @ServiceActivator(inputChannel = "mqttOutboundChannel")
-    public MessageHandler mqttOrderMessageHandler() {
+    public MessageHandler mqttMessageHandler() {
         MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(PUB_CLIENT_ID, mqttClientFactory());
         messageHandler.setAsync(true);
         messageHandler.setDefaultQos(2);
@@ -104,7 +101,7 @@ public class MqttConfiguration {
     }
 
     @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
-    public interface MqttOrderGateway {
+    public interface MqttGateway {
         void sendToMqtt(String data, @Header(MqttHeaders.TOPIC) String topic);
     }
 }
