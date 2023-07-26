@@ -9,24 +9,28 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.core.MessageProducer;
+import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
+import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
+import lombok.extern.slf4j.Slf4j;
 import task.poject.server.SmartFarm.SmartFarmRepository;
 import task.poject.server.SmartFarm.SmartFarmService;
 
+@Slf4j
 @Configuration
 public class MqttConfiguration {
 
     private String BROKER_URL;
     private String TOPIC;
     private String PUB_CLIENT_ID = MqttAsyncClient.generateClientId();
-    private SmartFarmRepository smartFarmRepository;
-    private SmartFarmService farmService;
+    private String SUB_CLIENT_ID = MqttAsyncClient.generateClientId();
 
     @Autowired
     public MqttConfiguration(@Value("${mqtt.url}") String BROKER_URL,
@@ -35,8 +39,6 @@ public class MqttConfiguration {
             SmartFarmRepository smartFarmRepository,
             SmartFarmService FarmService) {
         this.BROKER_URL = BROKER_URL + ":" + PORT;
-        this.smartFarmRepository = smartFarmRepository;
-        this.farmService = FarmService;
         this.TOPIC = TOPIC;
     }
 
@@ -57,8 +59,37 @@ public class MqttConfiguration {
         return factory;
     }
 
+    // Subscrib
     @Bean
-    public MessageChannel mqttPub() {
+    public MessageChannel mqttInputChannel() {
+        return new DirectChannel();
+    }
+
+    @Bean
+    public MessageProducer inboundChannel() {
+        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(BROKER_URL, SUB_CLIENT_ID,
+                TOPIC);
+        adapter.setCompletionTimeout(5000);
+        adapter.setConverter(new DefaultPahoMessageConverter());
+        adapter.setQos(2);
+        adapter.setOutputChannel(mqttInputChannel());
+        return adapter;
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "mqttInputChannel")
+    public MessageHandler inboundMessageHandler() {
+        return message -> {
+            String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
+            log.info("topic: " + topic + " payload: " + message.getPayload());
+            String[] token = topic.split("/");
+            String payload = message.getPayload().toString();
+        };
+    }
+
+    // Publish
+    @Bean
+    public MessageChannel mqttOutboundChannel() {
         return new DirectChannel();
     }
 
