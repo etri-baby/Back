@@ -91,6 +91,28 @@ public class MqttConfiguration {
             String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
             System.out.println("Topic:" + topic);
             System.out.println("Payload" + message.getPayload());
+
+            String[] token = topic.split("/");
+            String payload = message.getPayload().toString();
+
+            String kitType = token[0];
+            String type = token[1];
+
+            if (type.equals("message")) {
+                JSONParser parser = new JSONParser();
+                try {
+                    JSONObject object = (JSONObject) parser.parse(payload);
+                    JSONObject sensor = (JSONObject) object.get("Sensor");
+
+                    SmartFarm smartFarm = new SmartFarm();
+                    smartFarm.setKitType(kitType);
+                    smartFarm.setSensor(sensor.toJSONString());
+                    smartFarm.setValue(Float.parseFloat(sensor.get("temperature").toString()));
+                    service.save(smartFarm);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         };
     }
 

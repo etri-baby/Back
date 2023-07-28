@@ -29,4 +29,13 @@ public class SmartFarmService {
         String topic = kitType + "/actuator/" + sensor;
         mqttGateway.sendToMqtt(control, topic);
     }
+
+    public void save(SmartFarm smartFarm) {
+        smartFarm.setTimeStamp(LocalDateTime.now());
+
+        repo.save(smartFarm);
+
+        System.out.println(LocalDateTime.now() + " insert 성공");
+    }
+
 }

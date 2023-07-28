@@ -79,4 +79,16 @@ public class SmartFarmController {
             System.out.println("삐빅");
         return new ResponseEntity("삐빅", HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping("/sensor")
+    public ResponseEntity SensorCheck(@RequestParam("info") SmartFarm smartFarm) {
+        try {
+            List<SmartFarm> results = new ArrayList<>();
+            results = service.getAll();
+            return new ResponseEntity(results, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NO_CONTENT);
+        }
+    }
+
 }
