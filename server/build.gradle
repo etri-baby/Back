@@ -39,6 +39,10 @@ dependencies {
 
 	//MARIADB
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
+
+	// JSON
+	implementation 'org.json.json'
+
 }
 
 tasks.named('test') {

@@ -1,4 +1,4 @@
 mqtt:
     url: tcp://129.254.174.120
     port: 1883
-    topic: "smart"
+    topic: "farm/message"

@@ -1,5 +1,10 @@
 package task.poject.server.config;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.time.LocalDateTime;
+
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
+import task.poject.server.SmartFarm.SmartFarm;
 import task.poject.server.SmartFarm.SmartFarmRepository;
 import task.poject.server.SmartFarm.SmartFarmService;
 
@@ -29,6 +35,8 @@ public class MqttConfiguration {
     private String TOPIC;
     private String PUB_CLIENT_ID = MqttAsyncClient.generateClientId();
     private String SUB_CLIENT_ID = MqttAsyncClient.generateClientId();
+    private SmartFarmService service;
+    private SmartFarmRepository repository;
 
     @Autowired
     public MqttConfiguration(@Value("${mqtt.url}") String BROKER_URL,
@@ -38,6 +46,8 @@ public class MqttConfiguration {
             SmartFarmService FarmService) {
         this.BROKER_URL = BROKER_URL + ":" + PORT;
         this.TOPIC = TOPIC;
+        this.service = FarmService;
+        this.repository = smartFarmRepository;
     }
 
     private MqttConnectOptions connectOptions() {

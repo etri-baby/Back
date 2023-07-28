@@ -1,5 +1,7 @@
 package task.poject.server.SmartFarm;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,12 +17,15 @@ import lombok.NoArgsConstructor;
 public class SmartFarm {
 
     @Id
-    @Column(name = "id")
-    private int id;
+    @Column(name = "type")
+    private String id;
 
     @Column(name = "sensor")
     private String sensor;
 
     @Column(name = "value")
-    private int value;
+    private Float value;
+
+    @Column(name = "timestamp")
+    private LocalDateTime timeStamp;
 }
