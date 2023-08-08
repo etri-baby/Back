@@ -109,6 +109,7 @@ public class MqttConfiguration {
                     smartFarm.setSensor(sensor.toJSONString());
                     smartFarm.setValue(Float.parseFloat(sensor.get("temperature").toString()));
                     service.save(smartFarm);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

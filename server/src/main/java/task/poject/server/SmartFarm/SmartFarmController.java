@@ -2,6 +2,7 @@ package task.poject.server.SmartFarm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,11 +82,11 @@ public class SmartFarmController {
     }
 
     @GetMapping("/sensor")
-    public ResponseEntity SensorCheck(@RequestParam("info") SmartFarm smartFarm) {
+    public ResponseEntity SensorCheck(@RequestParam("kitType") String kitType) {
         try {
-            List<SmartFarm> results = new ArrayList<>();
-            results = service.getAll();
-            return new ResponseEntity(results, HttpStatus.OK);
+            Optional<SmartFarm> result = Optional.empty();
+            result = service.getTypeAll(kitType);
+            return new ResponseEntity(result, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NO_CONTENT);
         }

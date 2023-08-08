@@ -2,6 +2,7 @@ package task.poject.server.SmartFarm;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class SmartFarmService {
     }
 
     public void sentToMqtt(String kitType, String sensor, String control) {
-        String topic = kitType + "/actuator/" + sensor;
+        String topic = "smart/" + kitType + "/actuator/" + sensor;
         mqttGateway.sendToMqtt(control, topic);
     }
 
@@ -36,6 +37,12 @@ public class SmartFarmService {
         repo.save(smartFarm);
 
         System.out.println(LocalDateTime.now() + " insert 성공");
+    }
+
+    public Optional<SmartFarm> getTypeAll(String kitType) {
+        Optional<SmartFarm> farmOptional = repo.findAllByType(kitType);
+        System.out.println(farmOptional + "인가?");
+        return farmOptional;
     }
 
 }
