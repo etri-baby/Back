@@ -38,11 +38,4 @@ public class SmartFarmService {
 
         System.out.println(LocalDateTime.now() + " insert 성공");
     }
-
-    public Optional<SmartFarm> getTypeAll(String kitType) {
-        Optional<SmartFarm> farmOptional = repo.findAllByType(kitType);
-        System.out.println(farmOptional + "인가?");
-        return farmOptional;
-    }
-
 }

@@ -29,9 +29,6 @@ public class SmartFarm {
     @Column(name = "sensor")
     private String sensor;
 
-    @Column(name = "value")
-    private Float value;
-
     @Column(name = "timestamp")
     private LocalDateTime timeStamp;
 }

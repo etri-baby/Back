@@ -24,6 +24,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
+import task.Sensor.Temperature;
 import task.poject.server.SmartFarm.SmartFarm;
 import task.poject.server.SmartFarm.SmartFarmRepository;
 import task.poject.server.SmartFarm.SmartFarmService;
@@ -95,8 +96,8 @@ public class MqttConfiguration {
             String[] token = topic.split("/");
             String payload = message.getPayload().toString();
 
-            String kitType = token[0];
-            String type = token[1];
+            String kitType = token[1];
+            String type = token[2];
 
             if (type.equals("message")) {
                 JSONParser parser = new JSONParser();
@@ -104,10 +105,13 @@ public class MqttConfiguration {
                     JSONObject object = (JSONObject) parser.parse(payload);
                     JSONObject sensor = (JSONObject) object.get("Sensor");
 
+                    // Temperature temperature = new Temperature();
+                    // temperature.setKitType(kitType);
+                    // temperature.setValue(Float.parseFloat(sensor.get("temperature").toString()));
+
                     SmartFarm smartFarm = new SmartFarm();
                     smartFarm.setKitType(kitType);
                     smartFarm.setSensor(sensor.toJSONString());
-                    smartFarm.setValue(Float.parseFloat(sensor.get("temperature").toString()));
                     service.save(smartFarm);
 
                 } catch (Exception e) {

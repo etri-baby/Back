@@ -60,7 +60,7 @@ public class SmartFarmController {
         this.service = smartFarmService;
     }
 
-    @GetMapping
+    @GetMapping("/sensor")
     public List<SmartFarm> getAll() {
         return service.getAll();
     }
@@ -80,16 +80,4 @@ public class SmartFarmController {
             System.out.println("삐빅");
         return new ResponseEntity("삐빅", HttpStatus.BAD_REQUEST);
     }
-
-    @GetMapping("/sensor")
-    public ResponseEntity SensorCheck(@RequestParam("kitType") String kitType) {
-        try {
-            Optional<SmartFarm> result = Optional.empty();
-            result = service.getTypeAll(kitType);
-            return new ResponseEntity(result, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NO_CONTENT);
-        }
-    }
-
 }
