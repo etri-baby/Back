@@ -2,9 +2,6 @@ package task.poject.server.config;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import java.time.LocalDateTime;
-
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +22,9 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
 import task.Sensor.Temperature;
-import task.poject.server.SmartFarm.SmartFarm;
-import task.poject.server.SmartFarm.SmartFarmRepository;
-import task.poject.server.SmartFarm.SmartFarmService;
+import task.poject.server.domain.SmartFarm;
+import task.poject.server.domain.SmartFarmRepository;
+import task.poject.server.domain.SmartFarmService;
 
 @Configuration
 public class MqttConfiguration {

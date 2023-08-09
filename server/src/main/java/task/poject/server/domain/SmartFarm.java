@@ -1,4 +1,4 @@
-package task.poject.server.SmartFarm;
+package task.poject.server.domain;
 
 import java.time.LocalDateTime;
 

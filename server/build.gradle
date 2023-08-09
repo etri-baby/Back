@@ -41,7 +41,7 @@ dependencies {
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
 
 	// JSON
-	implementation 'org.json.json'
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
 }
 

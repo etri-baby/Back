@@ -1,8 +1,6 @@
-package task.poject.server.SmartFarm;
+package task.poject.server.domain;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.springframework.beans.factory.annotation.Autowired;
