@@ -102,9 +102,10 @@ public class MqttConfiguration {
                     JSONObject object = (JSONObject) parser.parse(payload);
                     JSONObject sensor = (JSONObject) object.get("Sensor");
 
-                    // Temperature temperature = new Temperature();
-                    // temperature.setKitType(kitType);
-                    // temperature.setValue(Float.parseFloat(sensor.get("temperature").toString()));
+                    service.getTemp(Float.parseFloat(sensor.get("temperature").toString()));
+                    service.getHumi(Float.parseFloat(sensor.get("humidity").toString()));
+                    service.getIllu(Float.parseFloat(sensor.get("illuminance").toString()));
+                    service.getSoil(Float.parseFloat(sensor.get("soilhumidity").toString()));
 
                     SmartFarm smartFarm = new SmartFarm();
                     smartFarm.setKitType(kitType);

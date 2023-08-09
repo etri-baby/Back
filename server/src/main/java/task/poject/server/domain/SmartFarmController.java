@@ -1,7 +1,6 @@
 package task.poject.server.domain;
 
 import java.util.List;
-
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import lombok.RequiredArgsConstructor;
-import task.poject.server.config.MqttConfiguration;
 
 @RestController
 @RequestMapping("/api/smartfarm")
@@ -28,13 +25,7 @@ import task.poject.server.config.MqttConfiguration;
 public class SmartFarmController {
 
     @Autowired
-    private SmartFarmRepository smartFarmRepository;
-
-    @Autowired
     private SmartFarmService service;
-
-    @Autowired
-    private MqttConfiguration.MqttGateway mqttGateway;
 
     @Autowired
     private IntegrationFlowContext flowContext;
@@ -77,5 +68,25 @@ public class SmartFarmController {
         } else
             System.out.println("삐빅");
         return new ResponseEntity("삐빅", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/sensor/temp")
+    public ResponseEntity nowTemperature() {
+        return new ResponseEntity(service.nowTemp().toString(), HttpStatus.OK);
+    }
+
+    @GetMapping("/sensor/humi")
+    public ResponseEntity nowHumidity() {
+        return new ResponseEntity(service.nowHumi().toString(), HttpStatus.OK);
+    }
+
+    @GetMapping("/sensor/illu")
+    public ResponseEntity nowIlluminance() {
+        return new ResponseEntity(service.nowIllu().toString(), HttpStatus.OK);
+    }
+
+    @GetMapping("/sensor/soil")
+    public ResponseEntity nowSoilhumidity() {
+        return new ResponseEntity(service.nowSoil().toString(), HttpStatus.OK);
     }
 }

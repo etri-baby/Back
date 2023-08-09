@@ -2,6 +2,7 @@ package task.poject.server.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import task.poject.server.config.MqttConfiguration;
 public class SmartFarmService {
 
     private MqttConfiguration.MqttGateway mqttGateway;
+    private Float temp, illu, humi, soil;
 
     @Autowired
     private SmartFarmRepository repo;
@@ -36,5 +38,37 @@ public class SmartFarmService {
         repo.save(smartFarm);
 
         System.out.println(LocalDateTime.now() + " insert 성공");
+    }
+
+    public void getTemp(Float tempValue) {
+        temp = tempValue;
+    }
+
+    public Float nowTemp() {
+        return temp;
+    }
+
+    public void getIllu(Float illuValue) {
+        illu = illuValue;
+    }
+
+    public Float nowIllu() {
+        return illu;
+    }
+
+    public void getHumi(Float humiValue) {
+        humi = humiValue;
+    }
+
+    public Float nowHumi() {
+        return humi;
+    }
+
+    public void getSoil(Float soilValue) {
+        soil = soilValue;
+    }
+
+    public Float nowSoil() {
+        return soil;
     }
 }
