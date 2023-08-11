@@ -1,12 +1,10 @@
-package task.poject.server.domain;
+package task.poject.server.domain.smartfarm;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import task.poject.server.config.MqttConfiguration;
 
 @Service
@@ -70,5 +68,9 @@ public class SmartFarmService {
 
     public Float nowSoil() {
         return soil;
+    }
+
+    public List<String> getSensorHistory(LocalDate start, LocalDate end) {
+        return repo.findByStartDateBetween(start, end);
     }
 }

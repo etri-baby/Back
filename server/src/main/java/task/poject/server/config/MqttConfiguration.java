@@ -22,9 +22,9 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
 import task.Sensor.Temperature;
-import task.poject.server.domain.SmartFarm;
-import task.poject.server.domain.SmartFarmRepository;
-import task.poject.server.domain.SmartFarmService;
+import task.poject.server.domain.smartfarm.SmartFarm;
+import task.poject.server.domain.smartfarm.SmartFarmRepository;
+import task.poject.server.domain.smartfarm.SmartFarmService;
 
 @Configuration
 public class MqttConfiguration {
@@ -94,7 +94,7 @@ public class MqttConfiguration {
             String payload = message.getPayload().toString();
 
             String kitType = token[1];
-            String type = token[2];
+            String type = token[0];
 
             if (type.equals("message")) {
                 JSONParser parser = new JSONParser();

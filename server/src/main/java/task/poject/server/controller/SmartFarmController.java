@@ -1,5 +1,6 @@
-package task.poject.server.domain;
+package task.poject.server.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
+import task.poject.server.domain.smartfarm.SmartFarm;
+import task.poject.server.domain.smartfarm.SmartFarmService;
 
 @RestController
 @RequestMapping("/api/smartfarm")
@@ -88,5 +91,11 @@ public class SmartFarmController {
     @GetMapping("/sensor/soil")
     public ResponseEntity nowSoilhumidity() {
         return new ResponseEntity(service.nowSoil().toString(), HttpStatus.OK);
+    }
+
+    @GetMapping("/sensor/history")
+    public List<String> getTest(@RequestParam("start") LocalDate start, @RequestParam("end") LocalDate end) {
+        
+        return service.getSensorHistory(start, end.plusDays(1));
     }
 }

@@ -1,4 +1,4 @@
-package task.poject.server.domain;
+package task.poject.server.domain.smartfarm;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;
