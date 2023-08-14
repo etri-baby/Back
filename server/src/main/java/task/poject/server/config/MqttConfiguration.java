@@ -21,7 +21,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
-import task.Sensor.Temperature;
 import task.poject.server.domain.smartfarm.SmartFarm;
 import task.poject.server.domain.smartfarm.SmartFarmRepository;
 import task.poject.server.domain.smartfarm.SmartFarmService;
@@ -87,14 +86,14 @@ public class MqttConfiguration {
     public MessageHandler inboundMessageHandler() {
         return message -> {
             String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
-            System.out.println("Topic:" + topic);
-            System.out.println("Payload" + message.getPayload());
+            System.out.println("Topic: " + topic);
+            System.out.println("Payload: " + message.getPayload());
 
             String[] token = topic.split("/");
             String payload = message.getPayload().toString();
 
             String kitType = token[1];
-            String type = token[0];
+            String type = token[2];
 
             if (type.equals("message")) {
                 JSONParser parser = new JSONParser();

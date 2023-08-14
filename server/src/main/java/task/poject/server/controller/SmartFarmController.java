@@ -1,8 +1,10 @@
 package task.poject.server.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -94,8 +96,9 @@ public class SmartFarmController {
     }
 
     @GetMapping("/sensor/history")
-    public List<String> getTest(@RequestParam("start") LocalDate start, @RequestParam("end") LocalDate end) {
-        
-        return service.getSensorHistory(start, end.plusDays(1));
+    public List<String> getTest(@RequestParam("sensor") String sensor, @RequestParam("start") LocalDate start,
+            @RequestParam("end") LocalDate end) {
+        ArrayList<String> history = service.getSensorHistory(sensor, start, end);
+        return history;
     }
 }
