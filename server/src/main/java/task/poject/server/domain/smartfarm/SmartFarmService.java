@@ -94,4 +94,8 @@ public class SmartFarmService {
 
         return valueList;
     }
+
+    public List<Object> getSensorDate(LocalDate start, LocalDate end) {
+        return repo.findByDateBetween(start, end);
+    }
 }

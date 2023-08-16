@@ -101,4 +101,10 @@ public class SmartFarmController {
         ArrayList<String> history = service.getSensorHistory(sensor, start, end);
         return history;
     }
+
+    @GetMapping("/sensor/date")
+    public List<Object> getSensorDateHistory(@RequestParam("start") LocalDate start,
+            @RequestParam("end") LocalDate end) {
+        return service.getSensorDate(start, end);
+    }
 }
