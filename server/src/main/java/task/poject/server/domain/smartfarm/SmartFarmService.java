@@ -77,24 +77,25 @@ public class SmartFarmService {
         return soil;
     }
 
-    public ArrayList<String> getSensorHistory(String sensor, LocalDate start, LocalDate end) {
-        List<String> listObject = repo.findByStartDateBetween(start, end);
-        ArrayList<String> valueList = new ArrayList<>();
-        JSONParser parser = new JSONParser();
-        for (int i = 0; i < listObject.size(); i++) {
-            String lString = listObject.get(i);
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = (JSONObject) parser.parse(lString);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            Float senValue = Float.parseFloat(jsonObject.get(sensor).toString());
-            valueList.add(senValue.toString());
-        }
+    // public ArrayList<String> getSensorHistory(String sensor, LocalDate start,
+    // LocalDate end) {
+    // List<String> listObject = repo.findByStartDateBetween(start, end);
+    // ArrayList<String> valueList = new ArrayList<>();
+    // JSONParser parser = new JSONParser();
+    // for (int i = 0; i < listObject.size(); i++) {
+    // String lString = listObject.get(i);
+    // JSONObject jsonObject = null;
+    // try {
+    // jsonObject = (JSONObject) parser.parse(lString);
+    // } catch (ParseException e) {
+    // e.printStackTrace();
+    // }
+    // Float senValue = Float.parseFloat(jsonObject.get(sensor).toString());
+    // valueList.add(senValue.toString());
+    // }
 
-        return valueList;
-    }
+    // return valueList;
+    // }
 
     public List<Object> getSensorDate(LocalDate start, LocalDate end) {
         return repo.findByDateBetween(start, end);

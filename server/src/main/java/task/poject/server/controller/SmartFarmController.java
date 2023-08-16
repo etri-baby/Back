@@ -95,12 +95,13 @@ public class SmartFarmController {
         return new ResponseEntity(service.nowSoil().toString(), HttpStatus.OK);
     }
 
-    @GetMapping("/sensor/history")
-    public List<String> getTest(@RequestParam("sensor") String sensor, @RequestParam("start") LocalDate start,
-            @RequestParam("end") LocalDate end) {
-        ArrayList<String> history = service.getSensorHistory(sensor, start, end);
-        return history;
-    }
+    // @GetMapping("/sensor/history")
+    // public List<String> getTest(@RequestParam("sensor") String sensor,
+    // @RequestParam("start") LocalDate start,
+    // @RequestParam("end") LocalDate end) {
+    // ArrayList<String> history = service.getSensorHistory(sensor, start, end);
+    // return history;
+    // }
 
     @GetMapping("/sensor/date")
     public List<Object> getSensorDateHistory(@RequestParam("start") LocalDate start,
