@@ -59,7 +59,7 @@ public class SmartFarmController {
         return service.getAll();
     }
 
-    @PostMapping("/actuator")
+    @PostMapping("/actuator/control")
     public ResponseEntity ActuatorControl(@RequestParam("kitType") String kitType,
             @RequestParam("sensor") String sensor,
             @RequestParam("control") String control) {
@@ -106,5 +106,10 @@ public class SmartFarmController {
     public List<Object> getSensorDateHistory(@RequestParam("start") LocalDate start,
             @RequestParam("end") LocalDate end) {
         return service.getSensorDate(start, end);
+    }
+
+    @GetMapping("/actuator")
+    public ResponseEntity nowActuator() {
+        return new ResponseEntity(service.nowActuator(), HttpStatus.OK);
     }
 }

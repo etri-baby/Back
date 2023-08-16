@@ -18,6 +18,7 @@ public class SmartFarmService {
 
     private MqttConfiguration.MqttGateway mqttGateway;
     private Float temp, illu, humi, soil;
+    private String actuatorCondition;
 
     @Autowired
     private SmartFarmRepository repo;
@@ -97,5 +98,13 @@ public class SmartFarmService {
 
     public List<Object> getSensorDate(LocalDate start, LocalDate end) {
         return repo.findByDateBetween(start, end);
+    }
+
+    public void getActuator(String actuator) {
+        actuatorCondition = actuator;
+    }
+
+    public String nowActuator() {
+        return actuatorCondition;
     }
 }

@@ -111,6 +111,9 @@ public class MqttConfiguration {
                     smartFarm.setSensor(sensor.toJSONString());
                     service.save(smartFarm);
 
+                    JSONObject actuator = (JSONObject) object.get("Actuator");
+                    service.getActuator(actuator.toJSONString());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
