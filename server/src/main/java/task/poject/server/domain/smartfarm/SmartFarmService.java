@@ -98,7 +98,7 @@ public class SmartFarmService {
     // }
 
     public List<Object> getSensorDate(LocalDate start, LocalDate end) {
-        return repo.findByDateBetween(start, end);
+        return repo.findByDateBetween(start, end.plusDays(1));
     }
 
     public void getActuator(String actuator) {
