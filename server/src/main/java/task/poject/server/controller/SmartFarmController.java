@@ -1,10 +1,8 @@
 package task.poject.server.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -61,15 +59,15 @@ public class SmartFarmController {
 
     @PostMapping("/actuator/control")
     public ResponseEntity ActuatorControl(@RequestParam("kitType") String kitType,
-            @RequestParam("sensor") String sensor,
+            @RequestParam("actuator") String actuator,
             @RequestParam("control") String control) {
-        service.sentToMqtt(kitType, sensor, control);
+        service.sentToMqtt(kitType, actuator, control);
         if (control.equals("0")) {
-            System.out.println(kitType + "의 " + sensor + "가 꺼질거에요");
-            return new ResponseEntity(kitType + "의 " + sensor + "가 꺼질거에요", HttpStatus.OK);
+            System.out.println(kitType + "의 " + actuator + "가 꺼질거에요");
+            return new ResponseEntity(kitType + "의 " + actuator + "가 꺼질거에요", HttpStatus.OK);
         } else if (control.equals("1")) {
-            System.out.println(kitType + "의 " + sensor + "가 켜질거에요");
-            return new ResponseEntity(kitType + "의 " + sensor + "가 켜질거에요", HttpStatus.OK);
+            System.out.println(kitType + "의 " + actuator + "가 켜질거에요");
+            return new ResponseEntity(kitType + "의 " + actuator + "가 켜질거에요", HttpStatus.OK);
         } else
             System.out.println("삐빅");
         return new ResponseEntity("삐빅", HttpStatus.BAD_REQUEST);
@@ -94,14 +92,6 @@ public class SmartFarmController {
     public ResponseEntity nowSoilhumidity() {
         return new ResponseEntity(service.nowSoil().toString(), HttpStatus.OK);
     }
-
-    // @GetMapping("/sensor/history")
-    // public List<String> getTest(@RequestParam("sensor") String sensor,
-    // @RequestParam("start") LocalDate start,
-    // @RequestParam("end") LocalDate end) {
-    // ArrayList<String> history = service.getSensorHistory(sensor, start, end);
-    // return history;
-    // }
 
     @GetMapping("/sensor/date")
     public List<Object> getSensorDateHistory(@RequestParam("start") LocalDate start,

@@ -3,3 +3,7 @@ spring:
         include:
             - db
             - mqtt
+    jpa:
+        properties:
+            hibernate:
+                database-platform: org.hibernate.dialect.MariaDBDialect
