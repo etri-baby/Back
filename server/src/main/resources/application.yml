@@ -6,4 +6,4 @@ spring:
     jpa:
         properties:
             hibernate:
-                database-platform: org.hibernate.dialect.MariaDBDialect
+                dialect: org.hibernate.dialect.MariaDBDialect

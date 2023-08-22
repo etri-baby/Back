@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  database:
+    image: mariadb
+    environment:
+      MARIADB_DATABASE: "etri"
+      MARIADB_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+  application:
+    image: smartfarmback
+    ports:
+      - "8080:8080"
+    depends_on: 
+    - database
