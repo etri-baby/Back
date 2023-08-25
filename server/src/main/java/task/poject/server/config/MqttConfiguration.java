@@ -86,14 +86,14 @@ public class MqttConfiguration {
     public MessageHandler inboundMessageHandler() {
         return message -> {
             String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
-            System.out.println("Topic: " + topic);
+            System.out.println("Topic: " + topic); // smart/farm/ ~
             System.out.println("Payload: " + message.getPayload());
 
             String[] token = topic.split("/");
             String payload = message.getPayload().toString();
 
-            String kitType = token[1];
-            String type = token[2];
+            String kitType = token[1]; // farm
+            String type = token[2]; // message
 
             if (type.equals("message")) {
                 JSONParser parser = new JSONParser();
@@ -101,16 +101,19 @@ public class MqttConfiguration {
                     JSONObject object = (JSONObject) parser.parse(payload);
                     JSONObject sensor = (JSONObject) object.get("Sensor");
 
+                    // 각 현재 센서 데이터값 넘겨주기
                     service.getTemp(Float.parseFloat(sensor.get("temperature").toString()));
                     service.getHumi(Float.parseFloat(sensor.get("humidity").toString()));
                     service.getIllu(Float.parseFloat(sensor.get("illuminance").toString()));
                     service.getSoil(Float.parseFloat(sensor.get("soilhumidity").toString()));
 
+                    // 데이터 저장
                     SmartFarm smartFarm = new SmartFarm();
                     smartFarm.setKitType(kitType);
                     smartFarm.setSensor(sensor.toJSONString());
                     service.save(smartFarm);
 
+                    // 현재 작동장치 작동 상태 넘겨주기
                     JSONObject actuator = (JSONObject) object.get("Actuator");
                     service.getActuator(actuator.toJSONString());
 
@@ -139,6 +142,7 @@ public class MqttConfiguration {
 
     @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
     public interface MqttGateway {
+        // 토픽 발행
         void sendToMqtt(String data, @Header(MqttHeaders.TOPIC) String topic);
     }
 }
