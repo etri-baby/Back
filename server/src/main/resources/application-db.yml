@@ -1,7 +1,7 @@
 spring:
     datasource:
         driverClassName: org.mariadb.jdbc.Driver
-        url: jdbc:mariadb://localhost:3306/etri
+        url: jdbc:mariadb://129.254.174.119:3306/etri
         username: root
         password: 1234
         hikari:
