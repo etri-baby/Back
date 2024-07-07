@@ -46,13 +46,15 @@
 
 ### [API 명세서]
 
-![image](https://github.com/etri-baby/Back/assets/66067273/db474e91-8cba-4b08-8e35-39237ee8c611)
+![image](https://github.com/etri-baby/Back/assets/66067273/ebd62b5e-9491-4c1c-80e0-f8d698ce5599)
+
 
 
 
 ### [Topic 명세서]
 
-![image](https://github.com/etri-baby/Back/assets/66067273/1937a031-bf3d-4636-b22a-2f7734e4c1ae)
+![image](https://github.com/etri-baby/Back/assets/66067273/1e6c432c-9e9b-4446-a941-e4de9652f46d)
+
 
 
 
